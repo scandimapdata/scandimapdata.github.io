@@ -217,8 +217,8 @@ function fillSelectors() {
   const countries = Object.keys(DATA.country)
     .sort((a, b) => a.localeCompare(b, 'sv'));
 
-  $('#countryList').innerHTML = countries
-    .map(c => `<option value="${esc(c)}"></option>`)
+  $('#countrySelect').innerHTML = countries
+    .map(c => `<option value="${esc(c)}">${esc(c)}</option>`)
     .join('');
 
   currentCountry = countries.includes('Somalia')
@@ -784,16 +784,6 @@ function bindUI() {
     .addEventListener(
       'change',
       renderCountry
-    );
-
-  $('#countrySelect')
-    .addEventListener(
-      'keydown',
-      e => {
-        if (e.key === 'Enter') {
-          renderCountry();
-        }
-      }
     );
 
   $('#topN')
