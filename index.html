@@ -7,59 +7,170 @@
   <title>Födelseland i Sverige – ScandiMapData</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 <div class="app">
+
   <header class="site-header">
     <div>
       <a class="brand" href="index.html">ScandiMapData</a>
       <h1>Födelseland i Sverige</h1>
       <p>Interaktiv karta baserad på SCB:s befolkningsstatistik, 31 december 2025.</p>
     </div>
-    <nav aria-label="Huvudnavigation"><a href="about.html">Om kartan</a><a href="privacy.html">Integritet</a></nav>
+
+    <nav aria-label="Huvudnavigation">
+      <a href="about.html">Om kartan</a>
+      <a href="privacy.html">Integritet</a>
+    </nav>
   </header>
 
   <main class="layout">
+
     <aside class="sidebar">
+
       <div class="tabs" role="tablist" aria-label="Kartläge">
-        <button class="tab active" id="tab-country" data-mode="country" type="button">Land → kommuner</button>
-        <button class="tab" id="tab-municipality" data-mode="municipality" type="button">Kommun → Top 10</button>
+        <button
+          class="tab active"
+          id="tab-country"
+          data-mode="country"
+          type="button"
+        >
+          Land → kommuner
+        </button>
+
+        <button
+          class="tab"
+          id="tab-municipality"
+          data-mode="municipality"
+          type="button"
+        >
+          Kommun → Top 10
+        </button>
       </div>
 
       <section id="panel-country">
-        <p class="intro">Välj ett födelseland och se var i Sverige flest personer födda där är folkbokförda.</p>
-        <div class="field"><label for="countrySelect">Födelseland</label><input id="countrySelect" list="countryList" autocomplete="off"><datalist id="countryList"></datalist></div>
-        <div id="countrySummary" class="summary"></div>
-        <div class="controls-row">
-          <div class="field compact"><label for="topN">Visa kommuner</label><input id="topN" type="number" min="1" max="290" value="10"></div>
-          <div class="field"><label for="shadeMetric">Färgintensitet</label><select id="shadeMetric"><option value="share">Andel av kommunens befolkning</option><option value="count">Antal personer</option></select></div>
+
+        <p class="intro">
+          Välj ett födelseland och se var i Sverige flest personer födda där är folkbokförda.
+        </p>
+
+        <div class="field">
+          <label for="countrySelect">Födelseland</label>
+          <select id="countrySelect"></select>
         </div>
+
+        <div id="countrySummary" class="summary"></div>
+
+        <div class="controls-row">
+
+          <div class="field compact">
+            <label for="topN">Visa kommuner</label>
+            <input
+              id="topN"
+              type="number"
+              min="1"
+              max="290"
+              value="10"
+            >
+          </div>
+
+          <div class="field">
+            <label for="shadeMetric">Färgintensitet</label>
+
+            <select id="shadeMetric">
+              <option value="share">
+                Andel av kommunens befolkning
+              </option>
+
+              <option value="count">
+                Antal personer
+              </option>
+            </select>
+          </div>
+
+        </div>
+
         <div id="countryResults" class="results"></div>
+
       </section>
 
       <section id="panel-municipality" class="hidden">
-        <p class="intro">Välj en kommun, eller klicka direkt på kartan, för att se de tio vanligaste separat redovisade födelseländerna utanför Sverige.</p>
-        <div class="field"><label for="municipalitySelect">Kommun</label><select id="municipalitySelect"></select></div>
+
+        <p class="intro">
+          Välj en kommun, eller klicka direkt på kartan, för att se de tio vanligaste separat redovisade födelseländerna utanför Sverige.
+        </p>
+
+        <div class="field">
+          <label for="municipalitySelect">Kommun</label>
+          <select id="municipalitySelect"></select>
+        </div>
+
         <div id="municipalitySummary" class="summary"></div>
+
         <div id="municipalityResults" class="results"></div>
+
       </section>
 
       <div class="method-note">
         <strong>Om statistiken</strong>
-        <p>Födelseland är inte samma sak som medborgarskap eller etnicitet. 2025 års uppgifter omfattas av SCB:s röjandeskydd.</p>
+
+        <p>
+          Födelseland är inte samma sak som medborgarskap eller etnicitet.
+          2025 års uppgifter omfattas av SCB:s röjandeskydd.
+        </p>
       </div>
+
     </aside>
 
-    <section class="map-panel" aria-label="Karta över Sveriges kommuner">
-      <div id="loading" class="loading">Laddar karta och statistik…</div>
-      <svg id="mapSvg" viewBox="0 0 1000 1200" role="img" aria-label="Sverigekarta"></svg>
-      <div class="map-tools"><button id="zoomIn" title="Zooma in">+</button><button id="zoomOut" title="Zooma ut">−</button><button id="resetBtn">Återställ</button></div>
-      <div class="legend"><span class="swatch"></span><span id="legendText">Laddar…</span></div>
+    <section
+      class="map-panel"
+      aria-label="Karta över Sveriges kommuner"
+    >
+
+      <div id="loading" class="loading">
+        Laddar karta och statistik…
+      </div>
+
+      <svg
+        id="mapSvg"
+        viewBox="0 0 1000 1200"
+        role="img"
+        aria-label="Sverigekarta"
+      ></svg>
+
+      <div class="map-tools">
+        <button id="zoomIn" title="Zooma in">+</button>
+        <button id="zoomOut" title="Zooma ut">−</button>
+        <button id="resetBtn">Återställ</button>
+      </div>
+
+      <div class="legend">
+        <span class="swatch"></span>
+        <span id="legendText">Laddar…</span>
+      </div>
+
     </section>
+
   </main>
 
-  <footer><span>Källa: Statistiska centralbyrån (SCB)</span><span>·</span><a href="about.html">Metod</a><span>·</span><a href="privacy.html">Integritet</a></footer>
+  <footer>
+    <span>Källa: Statistiska centralbyrån (SCB)</span>
+    <span>·</span>
+    <a href="about.html">Metod</a>
+    <span>·</span>
+    <a href="privacy.html">Integritet</a>
+  </footer>
+
 </div>
-<div id="tooltip" class="tooltip" role="status" aria-live="polite"></div>
+
+<div
+  id="tooltip"
+  class="tooltip"
+  role="status"
+  aria-live="polite"
+></div>
+
 <script src="js/app.js" defer></script>
+
 </body>
 </html>
