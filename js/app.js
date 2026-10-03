@@ -135,9 +135,14 @@ function buildMap() {
   let xs = [];
   let ys = [];
 
+  // Mercator använder både longitud och latitud i radianer
+  function mercX(lon) {
+    return lon * Math.PI / 180;
+  }
+
   for (const f of DATA.geo.features) {
     for (const [lon, lat] of allCoords(f.geometry)) {
-      xs.push(lon);
+      xs.push(mercX(lon));
       ys.push(mercY(lat));
     }
   }
@@ -159,7 +164,7 @@ function buildMap() {
   const oy = (H - (maxY - minY) * s) / 2;
 
   const point = ([lon, lat]) => [
-    ox + (lon - minX) * s,
+    ox + (mercX(lon) - minX) * s,
     H - (oy + (mercY(lat) - minY) * s)
   ];
 
